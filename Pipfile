@@ -15,3 +15,4 @@ python_version = "3.7"
 
 [scripts]
 test_small = "nosetests -v --nologcapture --attr size=small src/tests"
+test_medium = "nosetests -v --nologcapture --attr size=medium src/tests"

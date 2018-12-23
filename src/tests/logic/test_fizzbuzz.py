@@ -38,3 +38,34 @@ class TestFizzBuzz(unittest.TestCase):
     def test_fizzbuzz_normal(self, _, input, expected):
         actual = fizzbuzz.fizzbuzz(input)
         self.assertEqual(actual, expected)
+
+    @parameterized.expand([
+        param(
+            "value_1",
+            input=1,
+            expected=['1']),
+        param(
+            "value_15",
+            input=15,
+            expected=[
+                '1', '2', 'Fizz', '4', 'Buzz',
+                'Fizz', '7', '8', 'Fizz', 'Buzz',
+                '11', 'Fizz', '13', '14', 'FizzBuzz']),
+    ])
+    def test_fizzbuzz_gen_normal(self, _, input, expected):
+        actual = [item for item in fizzbuzz.fizzbuzz_gen(input)]
+        self.assertListEqual(actual, expected)
+
+    @parameterized.expand([
+        param(
+            "value_0",
+            input=0,
+            expected=ValueError),
+        param(
+            "value_minus",
+            input=-1,
+            expected=ValueError),
+    ])
+    def test_fizzbuzz_gen_exception(self, _, input, expected):
+        with self.assertRaises(expected):
+            [item for item in fizzbuzz.fizzbuzz_gen(input)]

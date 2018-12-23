@@ -1,5 +1,9 @@
 def fizzbuzz_gen(n: int):
-    raise NotImplementedError
+    if n < 1:
+        raise ValueError
+
+    for i in range(1, n + 1):
+        yield fizzbuzz(i)
 
 
 def fizzbuzz(n: int) -> str:

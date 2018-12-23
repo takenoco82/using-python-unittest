@@ -55,10 +55,11 @@ class TestFizzBuzz(unittest.TestCase):
         actual = list(fizzbuzz.fizzbuzz_gen(3))
         self.assertListEqual(actual, ['1', '2', '3'])
 
-    # call_count を使うと呼ばれた回数がわかる
+    # called を使うと呼ばれたかどうか、 call_count を使うと呼ばれた回数がわかる
     @patch('server.logic.fizzbuzz.fizzbuzz', return_value='1')
     def test_mock_call_count(self, mock):
         list(fizzbuzz.fizzbuzz_gen(3))
+        self.assertEqual(mock.called, True)
         self.assertEqual(mock.call_count, 3)
 
     # assert_has_calls を使うと読んだ回数と引数を検証できる

@@ -53,7 +53,7 @@ class TestFizzBuzz(unittest.TestCase):
                 '11', 'Fizz', '13', '14', 'FizzBuzz']),
     ])
     def test_fizzbuzz_gen_normal(self, _, input, expected):
-        actual = [item for item in fizzbuzz.fizzbuzz_gen(input)]
+        actual = list(fizzbuzz.fizzbuzz_gen(input))
         self.assertListEqual(actual, expected)
 
     @parameterized.expand([
@@ -84,4 +84,4 @@ class TestFizzBuzz(unittest.TestCase):
     ])
     def test_fizzbuzz_gen_exception(self, _, input, expected):
         with self.assertRaises(expected):
-            [item for item in fizzbuzz.fizzbuzz_gen(input)]
+            list(fizzbuzz.fizzbuzz_gen(input))

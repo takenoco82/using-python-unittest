@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch, call
 
 from nose.plugins.attrib import attr
 from parameterized import param, parameterized
@@ -38,6 +39,37 @@ class TestFizzBuzz(unittest.TestCase):
     def test_fizzbuzz_normal(self, _, input, expected):
         actual = fizzbuzz.fizzbuzz(input)
         self.assertEqual(actual, expected)
+
+    # 固定値でいいなら return_value を使う。ここでは 常に '1' を返す
+    @patch('server.logic.fizzbuzz.fizzbuzz', return_value='1')
+    # mockを使う場合、テストメソッドに引数を追加する
+    # unittest.mock.patch デコレータを使うと、そのメソッド内だけ置き換えることができる
+    def test_mock_patch_return_value(self, mock):
+        actual = list(fizzbuzz.fizzbuzz_gen(3))
+        # ホントは ['1', '2', 'Fizz'] だけど、常に'1'を返すようになっているので ['1', '1', '1']
+        self.assertListEqual(actual, ['1', '1', '1'])
+
+    # side_effect にリストを指定すると呼ばれた順に応じて値を変えることができる
+    @patch('server.logic.fizzbuzz.fizzbuzz', side_effect=['1', '2', '3'])
+    def test_mock_patch_side_effect(self, mock):
+        actual = list(fizzbuzz.fizzbuzz_gen(3))
+        self.assertListEqual(actual, ['1', '2', '3'])
+
+    # call_count を使うと呼ばれた回数がわかる
+    @patch('server.logic.fizzbuzz.fizzbuzz', return_value='1')
+    def test_mock_call_count(self, mock):
+        list(fizzbuzz.fizzbuzz_gen(3))
+        self.assertEqual(mock.call_count, 3)
+
+    # assert_has_calls を使うと読んだ回数と引数を検証できる
+    @patch('server.logic.fizzbuzz.fizzbuzz', return_value='1')
+    def test_fizzbuzz_gen_patch(self, mock):
+        list(fizzbuzz.fizzbuzz_gen(3))
+        # call_args_list で設定した引数がわかる
+        print('mock.call_args_list={}'.format(mock.call_args_list))
+        # 検証したい引数を unittest.mock.call の引数に設定する
+        # ここでは fizzbuzz.fizzbuzz() を3回呼び出して、それぞれ 1, 2, 3 の引数を渡している
+        mock.assert_has_calls([call(1), call(2), call(3)])
 
     @parameterized.expand([
         param(

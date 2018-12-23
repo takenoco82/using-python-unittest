@@ -25,3 +25,13 @@ class Test_get_fizzbuzz_medium(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         response_body = response.get_json()
         self.assertListEqual(response_body['fizzbuzz'], ['1', '2', 'Fizz'])
+
+    def test_4xx(self):
+        # リクエスト
+        url = self.url.format(n=0)
+        response = self.app.get(url)
+
+        # 検証
+        self.assertEqual(response.status_code, 400)
+        response_body = response.get_json()
+        self.assertEqual(response_body['error'], '`0` is invalid value. must be larger than `0`.')

@@ -32,7 +32,7 @@ class TestFizzBuzz(unittest.TestCase):
             param("value_6", input=6, expected="Fizz"),
             param("value_10", input=10, expected="Buzz"),
             param("value_15", input=15, expected="FizzBuzz"),
-            param("value_30", input=15, expected="FizzBuzz"),
+            param("value_30", input=30, expected="FizzBuzz"),
         ]
     )
     def test_fizzbuzz_normal(self, _, input, expected):

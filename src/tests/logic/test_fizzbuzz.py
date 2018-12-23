@@ -93,31 +93,53 @@ class TestFizzBuzz(unittest.TestCase):
         param(
             "value_0",
             input=0,
-            expected=ValueError),
+            expected={
+                'exception': ValueError,
+                'message': "`0` is invalid value. must be larger than `0`."
+            }),
         param(
             "value_minus",
             input=-1,
-            expected=ValueError),
+            expected={
+                'exception': ValueError,
+                'message': "`-1` is invalid value. must be larger than `0`."
+            }),
         param(
             "value_none",
             input=None,
-            expected=TypeError),
+            expected={
+                'exception': TypeError,
+                'message': "`None` is invalid value. must be type `int`."
+            }),
         param(
             "type_string",
             input='aha',
-            expected=TypeError),
+            expected={
+                'exception': TypeError,
+                'message': "`aha` is invalid value. must be type `int`."
+            }),
         param(
             "type_float",
             input=1.3,
-            expected=TypeError),
+            expected={
+                'exception': TypeError,
+                'message': "`1.3` is invalid value. must be type `int`."
+            }),
         param(
             "type_list",
             input=[1, 2],
-            expected=TypeError),
+            expected={
+                'exception': TypeError,
+                'message': "`[1, 2]` is invalid value. must be type `int`."
+            }),
     ])
     def test_fizzbuzz_gen_exception(self, _, input, expected):
-        with self.assertRaises(expected):
+        try:
             list(fizzbuzz.fizzbuzz_gen(input))
+            self.fail('NG')
+        except Exception as e:
+            self.assertEqual(type(e), expected['exception'])
+            self.assertEqual(e.args[0], expected['message'])
 
     @parameterized.expand([
         param(

@@ -4,9 +4,11 @@ def fizzbuzz_list(n: int) -> list:
 
 def fizzbuzz_gen(n: int):
     if type(n) != int:
-        raise TypeError
+        message = "`{}` is invalid value. must be type `int`.".format(n)
+        raise TypeError(message)
     if n < 1:
-        raise ValueError
+        message = "`{}` is invalid value. must be larger than `0`.".format(n)
+        raise ValueError(message)
 
     for i in range(1, n + 1):
         yield fizzbuzz(i)

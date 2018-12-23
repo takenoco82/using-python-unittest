@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 
-from server.logic.fizzbuzz import fizzbuzz_gen
+from server.logic.fizzbuzz import fizzbuzz_list
 
 app = Blueprint('fizzbuzz', __name__)
 
@@ -8,7 +8,7 @@ app = Blueprint('fizzbuzz', __name__)
 @app.route('/fizzbuzz/<int:n>', methods=['GET'])
 def get_fizzbuzz(n: int):
     try:
-        response = {'fizzbuzz': list(fizzbuzz_gen(n))}
+        response = {'fizzbuzz': list(fizzbuzz_list(n))}
     except (TypeError, ValueError) as e:
         response = {'error': e.args[0]}
         return jsonify(response), 400

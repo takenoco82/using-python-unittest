@@ -85,3 +85,16 @@ class TestFizzBuzz(unittest.TestCase):
     def test_fizzbuzz_gen_exception(self, _, input, expected):
         with self.assertRaises(expected):
             list(fizzbuzz.fizzbuzz_gen(input))
+
+    @parameterized.expand([
+        param(
+            "value_15",
+            input=15,
+            expected=[
+                '1', '2', 'Fizz', '4', 'Buzz',
+                'Fizz', '7', '8', 'Fizz', 'Buzz',
+                '11', 'Fizz', '13', '14', 'FizzBuzz']),
+    ])
+    def test_fizzbuzz_list(self, _, input, expected):
+        actual = fizzbuzz.fizzbuzz_list(input)
+        self.assertListEqual(actual, expected)

@@ -1,3 +1,7 @@
+def fizzbuzz_list(n: int) -> list:
+    return list(fizzbuzz_gen(n))
+
+
 def fizzbuzz_gen(n: int):
     if type(n) != int:
         raise TypeError

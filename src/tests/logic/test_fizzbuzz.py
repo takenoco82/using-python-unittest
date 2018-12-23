@@ -65,6 +65,22 @@ class TestFizzBuzz(unittest.TestCase):
             "value_minus",
             input=-1,
             expected=ValueError),
+        param(
+            "value_none",
+            input=None,
+            expected=TypeError),
+        param(
+            "type_string",
+            input='aha',
+            expected=TypeError),
+        param(
+            "type_float",
+            input=1.3,
+            expected=TypeError),
+        param(
+            "type_list",
+            input=[1, 2],
+            expected=TypeError),
     ])
     def test_fizzbuzz_gen_exception(self, _, input, expected):
         with self.assertRaises(expected):

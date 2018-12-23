@@ -1,4 +1,6 @@
 def fizzbuzz_gen(n: int):
+    if type(n) != int:
+        raise TypeError
     if n < 1:
         raise ValueError
 

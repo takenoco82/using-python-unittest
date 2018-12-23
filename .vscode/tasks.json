@@ -74,9 +74,9 @@
             }
         },
         {
-            "label": "nosetests: All Files",
+            "label": "make test",
             "type": "shell",
-            "command": "pipenv run nosetests -v --nologcapture ${workspaceRoot}/src/tests",
+            "command": "make test",
             "group": "test",
             "presentation": {
                 "echo": true,
